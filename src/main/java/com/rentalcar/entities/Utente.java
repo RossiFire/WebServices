@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rentalcar.entities.Prenotazione;
 
 @Entity
@@ -47,8 +48,8 @@ public class Utente implements Serializable {
 	@JoinColumn(name = "TIPOUTENTE")
 	private TipoUtente tipoutente;
 	
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "utentePrenotato", orphanRemoval = true)
+	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "utentePrenotato", orphanRemoval = true)
 	private List<Prenotazione> prenotazioni;
 	
 

@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.rentalcar.entities.Utente;
 
 @Entity
@@ -36,10 +37,12 @@ public class Prenotazione implements Serializable{
 	private Date dataFine;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "UTENTE")
 	private Utente utentePrenotato;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn (name = "MEZZO")
 	private Mezzo mezzoPrenotato;
 	
@@ -109,9 +112,4 @@ public class Prenotazione implements Serializable{
 		}
 	}
 	
-	
-	public List<Prenotazione> getPrenotazioniUtente() {
-		List<Prenotazione> prenotazioni = utentePrenotato.getPrenotazioni();
-		return prenotazioni;
-	}
 }

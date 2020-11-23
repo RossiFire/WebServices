@@ -29,8 +29,8 @@ public class TipoUtente implements Serializable{
 	
 	
 	
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tipoutente", orphanRemoval = true)
-//	private List<Utente> UtentiDelTipo;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tipoutente", orphanRemoval = true)
+	private List<Utente> UtentiDelTipo;
 
 
 

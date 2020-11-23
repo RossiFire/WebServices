@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="MEZZO")
 public class Mezzo implements Serializable{
@@ -39,7 +41,9 @@ public class Mezzo implements Serializable{
 	private String targa;
 
 	
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "mezzoPrenotato", orphanRemoval = true)
+	@JsonManagedReference
 	private List<Prenotazione> prenotazioni;
 
 
