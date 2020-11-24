@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +29,7 @@ public class SalutiRestContoller {
 	private UtentiService utentiService;
 	
 	
-	@GetMapping(value = "/test", produces = "application/json")
+	@GetMapping(value = "/customer", produces = "application/json")
 	public List<Utente> getUtenti(){
 		List <Utente> utenti = utentiService.selTutti();
 		if(utenti.size()<=0) {
@@ -43,5 +46,16 @@ public class SalutiRestContoller {
 		
 		String msg = String.format("\"%s sta usando sto web service\"", nome);
 		return msg;
+	}
+	
+	@PostMapping(value = "/aggiungi")
+	public String AggiungiUtente(@RequestBody Utente utente, BindingResult bindingresult) {
+		if(utente != null) {
+			utentiService.Aggiungi(utente);
+			return "Tutto bene";
+		}else {
+			return "utente nullo";
+		}
+		
 	}
 }
