@@ -48,14 +48,17 @@ public class SalutiRestContoller {
 		return msg;
 	}
 	
-	@PostMapping(value = "/aggiungi")
-	public String AggiungiUtente(@RequestBody Utente utente, BindingResult bindingresult) {
+	@GetMapping(value = "/aggiungi")
+	public String AggiungiUtente(@RequestBody Utente utente) {
+		System.out.println("CIAO CIAO CIAO");
+		System.out.println("CIAO CIAO CIAO");
 		if(utente != null) {
 			utentiService.Aggiungi(utente);
-			return "Tutto bene";
+			throw new RuntimeException("Co sto utente ce stamo a fa a muffa");
 		}else {
 			return "utente nullo";
 		}
-		
 	}
+	
+	
 }
