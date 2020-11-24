@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentalcar.entities.Utente;
@@ -42,23 +43,31 @@ public class SalutiRestContoller {
 	@GetMapping(value = "/test/{nome}")
 	public String getGreetings2(@PathVariable("nome") String nome){
 		if(nome.equals("Davvo")) 
-			throw new RuntimeException("Co sto utente ce stamo a fa a muffa");
+			throw new RuntimeException("Errore");
 		
 		String msg = String.format("\"%s sta usando sto web service\"", nome);
 		return msg;
 	}
 	
-	@GetMapping(value = "/aggiungi")
-	public String AggiungiUtente(@RequestBody Utente utente) {
+	@PostMapping(value = "/aggiungi")
+	public void AggiungiUtente(@RequestBody Utente utente) {
 		System.out.println("CIAO CIAO CIAO");
 		System.out.println("CIAO CIAO CIAO");
 		if(utente != null) {
 			utentiService.Aggiungi(utente);
-			throw new RuntimeException("Co sto utente ce stamo a fa a muffa");
 		}else {
-			return "utente nullo";
+			throw new RuntimeException("Errore");
 		}
 	}
+	
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/saluti")
+	public String saluti(@RequestParam(required = false, defaultValue = "World") String name) {
+		System.out.println("==== get greeting ====");
+		return name;
+	}
+
 	
 	
 }
