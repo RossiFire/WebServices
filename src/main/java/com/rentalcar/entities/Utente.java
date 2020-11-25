@@ -20,12 +20,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rentalcar.entities.Prenotazione;
 
 @Entity
 @Table(name = "UTENTE")
 public class Utente implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,10 +47,11 @@ public class Utente implements Serializable {
 	private String password;
 
 	@ManyToOne
+	//@JsonBackReference(value = "utente-tipoutente")
 	@JoinColumn(name = "TIPOUTENTE")
 	private TipoUtente tipoutente;
 	
-	@JsonManagedReference
+	@JsonManagedReference(value = "utente-prenotazioni")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "utentePrenotato", orphanRemoval = true)
 	private List<Prenotazione> prenotazioni;
 	

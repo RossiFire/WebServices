@@ -1,25 +1,25 @@
 package com.rentalcar.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
 @Table(name="TIPOUTENTE")
 public class TipoUtente implements Serializable{
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="idTIPO")
 	private int id;
@@ -28,9 +28,9 @@ public class TipoUtente implements Serializable{
 	private String tipo;
 	
 	
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tipoutente", orphanRemoval = true)
-	private List<Utente> UtentiDelTipo;
+//	@JsonManagedReference(value = "utente-tipoutente")
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tipoutente", orphanRemoval = false)
+//	private List<Utente> UtentiDelTipo;
 
 
 
@@ -54,6 +54,8 @@ public class TipoUtente implements Serializable{
 	}
 
 
+	
+	
 //	public List<Utente> getUtentiDelTipo() {
 //		return UtentiDelTipo;
 //	}

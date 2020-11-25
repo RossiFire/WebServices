@@ -37,12 +37,12 @@ public class Prenotazione implements Serializable{
 	private Date dataFine;
 	
 	@ManyToOne
-	@JsonBackReference
+	@JsonBackReference(value = "utente-prenotazioni")
 	@JoinColumn(name = "UTENTE")
 	private Utente utentePrenotato;
 	
 	@ManyToOne
-	@JsonBackReference
+	@JsonBackReference(value = "mezzo-prenotazioni")
 	@JoinColumn (name = "MEZZO")
 	private Mezzo mezzoPrenotato;
 	

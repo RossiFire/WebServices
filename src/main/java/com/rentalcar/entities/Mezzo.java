@@ -42,8 +42,8 @@ public class Mezzo implements Serializable{
 
 	
 	
+	@JsonManagedReference(value = "mezzo-prenotazioni")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "mezzoPrenotato", orphanRemoval = true)
-	@JsonManagedReference
 	private List<Prenotazione> prenotazioni;
 
 
