@@ -34,21 +34,8 @@ public class SalutiRestContoller {
 	
 	@GetMapping(value = "/customer", produces = "application/json")
 	public List<Utente> getUtenti(){
-		List <Utente> utenti = utentiService.selTutti();
-		if(utenti.size()<=0) {
-			return utenti;
-		}
-		return utenti;
+		 return utentiService.selTutti();
 		
-	}
-	
-	@GetMapping(value = "/test/{nome}")
-	public String getGreetings2(@PathVariable("nome") String nome){
-		if(nome.equals("Davvo")) 
-			throw new RuntimeException("Errore");
-		
-		String msg = String.format("\"%s sta usando sto web service\"", nome);
-		return msg;
 	}
 	
 	@PostMapping(value = "/aggiungi")
@@ -70,7 +57,7 @@ public class SalutiRestContoller {
 	
 	
 	@GetMapping("/modifica/{id}")
-	public void Modifica(@PathVariable("id") int id) {
+	public void GetModId(@PathVariable("id") int id) {
 		Utente u = utentiService.selById(id);
 		if(u == null) {
 			throw new RuntimeException("Errore");						

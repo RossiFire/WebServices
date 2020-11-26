@@ -21,7 +21,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="MEZZO")
 public class Mezzo implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
+	public Mezzo() {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idMEZZO")
@@ -42,20 +46,20 @@ public class Mezzo implements Serializable{
 
 	
 	
-	@JsonManagedReference(value = "mezzo-prenotazioni")
+	//@JsonManagedReference(value = "mezzo-prenotazioni")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "mezzoPrenotato", orphanRemoval = true)
 	private List<Prenotazione> prenotazioni;
-
-
-	
-	
-	public List<Prenotazione> getPrenotazioni() {
-		return prenotazioni;
-	}
-
-	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
-		this.prenotazioni = prenotazioni;
-	}
+//
+//
+//	
+//	
+//	public List<Prenotazione> getPrenotazioni() {
+//		return prenotazioni;
+//	}
+//
+//	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+//		this.prenotazioni = prenotazioni;
+//	}
 
 	public int getId() {
 		return id;

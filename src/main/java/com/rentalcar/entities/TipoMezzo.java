@@ -14,7 +14,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="TIPOMEZZO")
 public class TipoMezzo implements Serializable{
-		
+
+	private static final long serialVersionUID = 1L;
+
 		@Id
 		@Column(name="idTIPO")
 		private int id;
@@ -23,8 +25,8 @@ public class TipoMezzo implements Serializable{
 		private String tipo;
 		
 		
-		@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tipomezzo", orphanRemoval = true)
-		private List<Mezzo> mezziDelTIpo;
+//		@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tipomezzo", orphanRemoval = true)
+//		private List<Mezzo> mezziDelTIpo;
 
 
 		public int getId() {
@@ -47,12 +49,12 @@ public class TipoMezzo implements Serializable{
 		}
 
 
-		public List<Mezzo> getMezziDelTIpo() {
-			return mezziDelTIpo;
-		}
-
-
-		public void setMezziDelTIpo(List<Mezzo> mezziDelTIpo) {
-			this.mezziDelTIpo = mezziDelTIpo;
-		}	
+//		public List<Mezzo> getMezziDelTIpo() {
+//			return mezziDelTIpo;
+//		}
+//
+//
+//		public void setMezziDelTIpo(List<Mezzo> mezziDelTIpo) {
+//			this.mezziDelTIpo = mezziDelTIpo;
+//		}	
 }

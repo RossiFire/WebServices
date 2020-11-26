@@ -28,6 +28,8 @@ import com.rentalcar.entities.Prenotazione;
 @Table(name = "UTENTE")
 public class Utente implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public Utente() {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,21 +53,21 @@ public class Utente implements Serializable {
 	@JoinColumn(name = "TIPOUTENTE")
 	private TipoUtente tipoutente;
 	
-	@JsonManagedReference(value = "utente-prenotazioni")
+	//@JsonManagedReference(value = "utente-prenotazioni")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "utentePrenotato", orphanRemoval = true)
 	private List<Prenotazione> prenotazioni;
-	
-
-
-
-	public List<Prenotazione> getPrenotazioni() {
-		return prenotazioni;
-	}
-
-
-	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
-		this.prenotazioni = prenotazioni;
-	}
+//	
+//
+//
+//
+//	public List<Prenotazione> getPrenotazioni() {
+//		return prenotazioni;
+//	}
+//
+//
+//	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+//		this.prenotazioni = prenotazioni;
+//	}
 
 
 	public int getId() {

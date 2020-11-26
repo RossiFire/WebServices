@@ -21,7 +21,9 @@ import com.rentalcar.entities.Utente;
 @Entity
 @Table(name = "PRENOTAZIONI")
 public class Prenotazione implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
+	public Prenotazione() {}
+
 	@Id
 	@Column(name = "idPRENOTAZIONE")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,12 +39,12 @@ public class Prenotazione implements Serializable{
 	private Date dataFine;
 	
 	@ManyToOne
-	@JsonBackReference(value = "utente-prenotazioni")
+	//@JsonBackReference(value = "utente-prenotazioni")
 	@JoinColumn(name = "UTENTE")
 	private Utente utentePrenotato;
 	
 	@ManyToOne
-	@JsonBackReference(value = "mezzo-prenotazioni")
+	//@JsonBackReference(value = "mezzo-prenotazioni")
 	@JoinColumn (name = "MEZZO")
 	private Mezzo mezzoPrenotato;
 	
