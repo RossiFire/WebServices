@@ -56,7 +56,7 @@ public class UtentiDaoImp extends AbstractDao<Utente, Integer> implements Utenti
 		List<Utente> u =entityManager.createQuery(jpql).setParameter("name", nome)
 				.setParameter("pwd", password).getResultList();
 		if(u.isEmpty()) {
-			nonEs.setNome("-1");
+			nonEs = null;
 			return nonEs;
 		}else {
 			return u.get(0);
@@ -75,6 +75,24 @@ public class UtentiDaoImp extends AbstractDao<Utente, Integer> implements Utenti
 			return -1;
 		}else {
 			return u.getId();
+		}
+	}
+	
+	
+	
+	
+	
+	@Override
+	public boolean HaDiritti(String nome, String Password) {
+		Utente u = ControllaUtente(nome, Password);
+		if(u == null) {
+			throw new RuntimeException("Errore");	
+		}else {
+			if(u.getTipoutente().getTipo().equals("ADMIN")) {
+				return true;
+			}else {
+				return false;
+			}			
 		}
 	}
 

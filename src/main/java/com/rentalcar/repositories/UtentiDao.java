@@ -19,4 +19,6 @@ public interface UtentiDao {
 		Utente ControllaUtente(String nome, String password);
 		
 		int selByCredenziali(String nome,String password);
+		
+		public boolean HaDiritti(String nome, String password);
 }

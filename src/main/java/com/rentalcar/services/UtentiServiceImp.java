@@ -64,5 +64,10 @@ public class UtentiServiceImp implements UtentiService{
 	public int selByCredenziali(String nome, String password) {
 		return utentiRepo.selByCredenziali(nome, password);
 	}
+	
+	@Override
+	public boolean HaDiritti(String nome, String password) {
+		return utentiRepo.HaDiritti(nome, password);
+	}
 
 }

@@ -81,7 +81,6 @@ public class PrenotazioniRestController {
 		Pr.setDataFine(p.getDataFine());
 		Pr.setUtentePrenotato(NewUtente);
 		Pr.setMezzoPrenotato(newMezzo);
-		System.out.println("-------------E FIN QUI CI SIAMO---------------");
 		PrenotazioniService.Aggiorna(Pr);
 	}
 

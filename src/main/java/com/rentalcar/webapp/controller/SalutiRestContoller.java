@@ -1,20 +1,15 @@
 package com.rentalcar.webapp.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rentalcar.entities.TipoUtente;
@@ -81,6 +76,32 @@ public class SalutiRestContoller {
 		utentiService.Aggiorna(u);
 	}
 	
+	
+	@PostMapping(value= "/controlla")
+	public boolean ControllaPrivilegi(@RequestBody String Dati) {
+		JSONObject obj = new JSONObject(Dati);
+        String Nome = obj.getString("nome");
+        String Psw = obj.getString("password");
+		return utentiService.HaDiritti(Nome, Psw);
+	}
+	
+	
+	
+	@PostMapping(value="/id")
+	public int getId(@RequestBody String Dati) {
+		JSONObject obj = new JSONObject(Dati);
+        String Nome = obj.getString("nome");
+        String Psw = obj.getString("password");
+		return utentiService.selByCredenziali(Nome, Psw);
+	}
+	
+	
+	@GetMapping(value="/singolo/{id}")
+	public Utente getUtente(@PathVariable("id") int id) {
+		System.out.println("Ci siamooooo");
+		System.out.println("Ci siamooooo");
+		return utentiService.selById(id);
+	}
 	
 	
 	public Utente Normalizzazione(Utente utente) {

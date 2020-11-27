@@ -19,4 +19,6 @@ public interface UtentiService {
 	String ControllaUtente(String nome, String password);
 	
 	int selByCredenziali(String nome,String password);
+	
+	public boolean HaDiritti(String nome, String password);
 }
