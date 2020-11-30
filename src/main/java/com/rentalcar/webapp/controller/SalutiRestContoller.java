@@ -35,8 +35,8 @@ public class SalutiRestContoller {
 	@PostMapping(value = "/aggiungi")
 	public ResponseEntity<String> AggiungiUtente(@RequestBody Utente utente) {
 		Utente u = Normalizzazione(utente);
-		utentiService.Aggiungi(utente);
-		return new ResponseEntity<String>("Utente aggiunto con successo", HttpStatus.OK);
+		utentiService.Aggiungi(u);
+		return new ResponseEntity<String>("Utente Inserito nel server", HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/customer", produces = "application/json")
@@ -50,7 +50,8 @@ public class SalutiRestContoller {
 		Optional <Utente> tm = utentiService.selById(id);
 		Utente u = tm.get();
 		if(u == null) {
-			return new ResponseEntity<String>("Errore Nell'eliminazione dell'utente", HttpStatus.BAD_REQUEST);
+		//	return new ResponseEntity <String>("Errore Nell'eliminazione dell'utente", HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body("Errore Nell'eliminazione dell'utente");
 		}else {
 			utentiService.Elimina(u);
 			return new ResponseEntity<String>("Eliminazione avvenuta con successo", HttpStatus.OK);

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.rentalcar.entities.Utente;
 
-@Repository
 public interface UtentiDao extends JpaRepository<Utente, Integer>{
 
 		@Query("SELECT a FROM Utente a WHERE a.nome =?1 AND a.password =?2")

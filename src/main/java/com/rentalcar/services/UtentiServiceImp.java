@@ -32,6 +32,7 @@ public class UtentiServiceImp implements UtentiService{
 	@Override
 	public void Aggiungi(Utente utente) {
 		utentiRepo.save(utente);
+		utentiRepo.flush();
 	}
 
 	@Override
@@ -43,6 +44,7 @@ public class UtentiServiceImp implements UtentiService{
 	@Override
 	public void Elimina(Utente utente) {
 		utentiRepo.delete(utente);
+		utentiRepo.flush();
 	}
 
 	@Override
