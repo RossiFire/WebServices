@@ -1,6 +1,7 @@
 package com.rentalcar.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rentalcar.repositories.UtentiDao;
+import com.rentalcar.repositories.UtentiDaoImp;
 import com.rentalcar.entities.Utente;
 
 @Service("utentiService")
@@ -18,36 +20,34 @@ public class UtentiServiceImp implements UtentiService{
 	private UtentiDao utentiRepo;
 
 	@Override
-	public Utente selById(int id) {
-		return utentiRepo.selById(id);
+	public Optional<Utente> selById(int id) {
+		return utentiRepo.findById(id);
 	}
-
+	
 	@Override
 	public List<Utente> selTutti() {
-		return utentiRepo.selTutti();
+		return utentiRepo.findAll();
 	}
 
 	@Override
 	public void Aggiungi(Utente utente) {
-		utentiRepo.Aggiungi(utente);
-		
+		utentiRepo.save(utente);
 	}
 
 	@Override
 	public void Aggiorna(Utente utente) {
-		utentiRepo.Aggiorna(utente);
+		Aggiungi(utente);
 		
 	}
 
 	@Override
 	public void Elimina(Utente utente) {
-		utentiRepo.Elimina(utente);
-		
+		utentiRepo.delete(utente);
 	}
 
 	@Override
 	public String ControllaUtente(String nome, String password) {
-		Utente u = utentiRepo.ControllaUtente(nome, password);
+		Utente u = utentiRepo.ControlloEsisteUtente(nome, password);
 
 		if (u.getNome().equals("-1")) {
 			return "NO";
@@ -62,17 +62,23 @@ public class UtentiServiceImp implements UtentiService{
 
 	@Override
 	public int selByCredenziali(String nome, String password) {
-		return utentiRepo.selByCredenziali(nome, password);
+		Utente u = utentiRepo.ControlloEsisteUtente(nome, password);
+		return u.getId();
 	}
 	
 	@Override
 	public boolean HaDiritti(String nome, String password) {
-		return utentiRepo.HaDiritti(nome, password);
+		Utente u = utentiRepo.ControlloEsisteUtente(nome, password);
+		if(u.getTipoutente().getTipo().equals("ADMIN")) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	
 	@Override
 	public List<Utente> selCustomer(){
-		return utentiRepo.selCustomer();
+		return utentiRepo.SelCustomer();
 	}
 }

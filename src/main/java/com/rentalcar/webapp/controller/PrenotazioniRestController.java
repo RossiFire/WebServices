@@ -1,6 +1,7 @@
 package com.rentalcar.webapp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,7 +46,8 @@ public class PrenotazioniRestController {
 	@PostMapping(value = "/aggiungi")
 	public void AggiungiPrenotazione(@RequestBody Prenotazione p) {
 		
-		Utente u = utentiService.selById(p.getUtentePrenotato().getId());
+		Utente u = new Utente();
+//		= utentiService.selById(p.getUtentePrenotato().getId());
 		Mezzo m = mezziService.selById(p.getMezzoPrenotato().getId());
 		Prenotazione Pr = new Prenotazione();
 		Pr.setId(p.getId());
@@ -72,7 +74,8 @@ public class PrenotazioniRestController {
 	@PostMapping(value="/modifica")
 	public void Modifica(@RequestBody Prenotazione p) {
 		Prenotazione Pr =  PrenotazioniService.selById(IdInMemoria);
-		Utente NewUtente = utentiService.selById(p.getUtentePrenotato().getId());
+		Optional<Utente> tm = utentiService.selById(p.getUtentePrenotato().getId());
+		Utente NewUtente = tm.get();
 		Mezzo newMezzo = mezziService.selById(p.getMezzoPrenotato().getId());
 		
 		

@@ -1,9 +1,13 @@
 package com.rentalcar.webapp.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,16 +32,11 @@ public class SalutiRestContoller {
 	private int ModificaId = -1;
 	
 	
-//	@GetMapping(value = "/customer", produces = "application/json")
-//	public List<Utente> GetUtenti(){
-//		 return utentiService.selTutti();
-//		
-//	}
-	
 	@PostMapping(value = "/aggiungi")
-	public void AggiungiUtente(@RequestBody Utente utente) {
+	public ResponseEntity<String> AggiungiUtente(@RequestBody Utente utente) {
 		Utente u = Normalizzazione(utente);
-		utentiService.Aggiungi(u);
+		utentiService.Aggiungi(utente);
+		return new ResponseEntity<String>("Utente aggiunto con successo", HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/customer", produces = "application/json")
@@ -47,31 +46,36 @@ public class SalutiRestContoller {
 	
 	
 	@GetMapping("/elimina/{id}")
-	public void Elimina(@PathVariable("id") int id) {
-		Utente u = utentiService.selById(id);
+	public ResponseEntity<String> Elimina(@PathVariable("id") int id) {
+		Optional <Utente> tm = utentiService.selById(id);
+		Utente u = tm.get();
 		if(u == null) {
-			throw new RuntimeException("Errore");						
+			return new ResponseEntity<String>("Errore Nell'eliminazione dell'utente", HttpStatus.BAD_REQUEST);
 		}else {
 			utentiService.Elimina(u);
+			return new ResponseEntity<String>("Eliminazione avvenuta con successo", HttpStatus.OK);
 		}
 	}
 	
 	
 	@GetMapping("/modifica/{id}")
-	public void GetModId(@PathVariable("id") int id) {
-		Utente u = utentiService.selById(id);
+	public ResponseEntity<String> GetModId(@PathVariable("id") int id) {
+		Optional<Utente> tm = utentiService.selById(id);
+		Utente u = tm.get();
 		if(u == null) {
-			throw new RuntimeException("Errore");						
+			return new ResponseEntity<String>("Errore Nell'eliminazione dell'utente", HttpStatus.BAD_REQUEST);					
 		}else {
 			ModificaId= u.getId();
+			return new ResponseEntity<String>("Id memorizzato e pronto alla modifica", HttpStatus.OK);
 		}
 	}
 
 	
 	@PostMapping("/modifica")
-	public void Modifica(@RequestBody Utente utente) {
+	public ResponseEntity<String> Modifica(@RequestBody Utente utente) {
 		
-		Utente u = utentiService.selById(ModificaId);
+		Optional<Utente> tm = utentiService.selById(ModificaId);
+		Utente u = tm.get();
 		TipoUtente tp = new TipoUtente();
 		u.setNome(utente.getNome());
 		u.setCognome(utente.getCognome());
@@ -80,6 +84,7 @@ public class SalutiRestContoller {
 		tp.setId(utente.getTipoutente().getId());
 		u.setTipoutente(tp);
 		utentiService.Aggiorna(u);
+		return new ResponseEntity<String>("Modifica Avvenuta con successo", HttpStatus.OK);
 	}
 	
 	
@@ -103,7 +108,7 @@ public class SalutiRestContoller {
 	
 	
 	@GetMapping(value="/singolo/{id}")
-	public Utente getUtente(@PathVariable("id") int id) {
+	public Optional<Utente> getUtente(@PathVariable("id") int id) {
 		System.out.println("Ci siamooooo");
 		System.out.println("Ci siamooooo");
 		return utentiService.selById(id);

@@ -1,12 +1,14 @@
 package com.rentalcar.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.rentalcar.entities.Utente;
 
 public interface UtentiService {
 
 	
-	Utente selById(int id);
+	Optional<Utente> selById(int id);
 	
 	List<Utente> selTutti();
 	
