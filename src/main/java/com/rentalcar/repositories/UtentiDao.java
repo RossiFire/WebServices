@@ -20,5 +20,7 @@ public interface UtentiDao {
 		
 		int selByCredenziali(String nome,String password);
 		
-		public boolean HaDiritti(String nome, String password);
+		boolean HaDiritti(String nome, String password);
+		
+		List<Utente> selCustomer();
 }

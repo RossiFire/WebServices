@@ -27,16 +27,22 @@ public class SalutiRestContoller {
 	
 	private int ModificaId = -1;
 	
-	@GetMapping(value = "/customer", produces = "application/json")
-	public List<Utente> getUtenti(){
-		 return utentiService.selTutti();
-		
-	}
+	
+//	@GetMapping(value = "/customer", produces = "application/json")
+//	public List<Utente> GetUtenti(){
+//		 return utentiService.selTutti();
+//		
+//	}
 	
 	@PostMapping(value = "/aggiungi")
 	public void AggiungiUtente(@RequestBody Utente utente) {
 		Utente u = Normalizzazione(utente);
 		utentiService.Aggiungi(u);
+	}
+	
+	@GetMapping(value = "/customer", produces = "application/json")
+	public List<Utente> GetCustomer() {
+		return utentiService.selCustomer();
 	}
 	
 	

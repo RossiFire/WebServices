@@ -79,9 +79,6 @@ public class UtentiDaoImp extends AbstractDao<Utente, Integer> implements Utenti
 	}
 	
 	
-	
-	
-	
 	@Override
 	public boolean HaDiritti(String nome, String Password) {
 		Utente u = ControllaUtente(nome, Password);
@@ -94,6 +91,13 @@ public class UtentiDaoImp extends AbstractDao<Utente, Integer> implements Utenti
 				return false;
 			}			
 		}
+	}
+	
+
+	@Override
+	public List<Utente> selCustomer(){
+		String jpql = "SELECT a FROM Utente a, TipoUtente b WHERE a.tipoutente=b.id AND b.tipo= 'CUSTOMER'";
+		return entityManager.createQuery(jpql).getResultList();	
 	}
 
 

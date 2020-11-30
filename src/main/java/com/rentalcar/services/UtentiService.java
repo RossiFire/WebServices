@@ -21,4 +21,6 @@ public interface UtentiService {
 	int selByCredenziali(String nome,String password);
 	
 	public boolean HaDiritti(String nome, String password);
+	
+	List<Utente> selCustomer();
 }

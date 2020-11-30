@@ -70,4 +70,9 @@ public class UtentiServiceImp implements UtentiService{
 		return utentiRepo.HaDiritti(nome, password);
 	}
 
+	
+	@Override
+	public List<Utente> selCustomer(){
+		return utentiRepo.selCustomer();
+	}
 }
