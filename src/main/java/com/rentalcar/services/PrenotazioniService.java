@@ -1,6 +1,7 @@
 package com.rentalcar.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.rentalcar.entities.Prenotazione;
 
@@ -15,7 +16,5 @@ public interface PrenotazioniService {
 	
 	void Elimina(Prenotazione prenotazione);
 	
-	List <Prenotazione> selByUserId(int id);
-	
-	Prenotazione selById(int id);
+	Optional<Prenotazione> selById(int id);
 }

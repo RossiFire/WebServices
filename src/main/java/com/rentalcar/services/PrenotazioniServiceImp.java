@@ -1,6 +1,7 @@
 package com.rentalcar.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,35 +19,30 @@ public class PrenotazioniServiceImp implements PrenotazioniService{
 	
 	@Override
 	public List<Prenotazione> selTutti() {
-		return prenotazioniDao.selTutti();
+		return prenotazioniDao.findAll();
 	}
 
 	@Override
 	public void Aggiungi(Prenotazione prenotazione) {
-		prenotazioniDao.Aggiungi(prenotazione);
+		prenotazioniDao.save(prenotazione);
 		
 	}
 
 	@Override
 	public void Aggiorna(Prenotazione prenotazione) {
-		prenotazioniDao.Aggiorna(prenotazione);
+		Aggiungi(prenotazione);
 		
 	}
 
 	@Override
 	public void Elimina(Prenotazione prenotazione) {
-		prenotazioniDao.Elimina(prenotazione);
-		
+		prenotazioniDao.delete(prenotazione);	
 	}
+	
 
 	@Override
-	public List<Prenotazione> selByUserId(int id) {
-		return prenotazioniDao.selByUserId(id);
-	}
-
-	@Override
-	public Prenotazione selById(int id) {
-		return prenotazioniDao.selById(id);
+	public Optional<Prenotazione> selById(int id) {
+		return prenotazioniDao.findById(id);
 	}
 
 }

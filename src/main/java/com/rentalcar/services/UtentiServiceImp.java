@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rentalcar.repositories.UtentiDao;
-import com.rentalcar.repositories.UtentiDaoImp;
 import com.rentalcar.entities.Utente;
 
 @Service("utentiService")

@@ -1,8 +1,10 @@
 package com.rentalcar.webapp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +36,20 @@ public class MezziRestController {
 	}
 	
 	@GetMapping(value = "/elimina/{id}")
-	public void EliminaMezzo(@PathVariable("id")int id) {
-		mezziService.Elimina(mezziService.selById(id));
+	public ResponseEntity<String> EliminaMezzo(@PathVariable("id")int id) {
+		Optional<Mezzo> tm = mezziService.selById(id);
+		Mezzo m = tm.get();
+		if(m == null) {
+			return ResponseEntity.badRequest().body("\"Errore Nell'eliminazione dell'mezzo\"");
+		}
+		mezziService.Elimina(m);
+		return ResponseEntity.ok("\"Mezzo eliminato correttamente\"");
 	}
 	
+	
+	
 	@PostMapping(value = "aggiungi")
-	public void AggiungiMezzo(@RequestBody Mezzo mezzo) {
+	public ResponseEntity<String> AggiungiMezzo(@RequestBody Mezzo mezzo) {
 		Mezzo m = new Mezzo();
 		TipoMezzo tp = new TipoMezzo();
 		
@@ -50,11 +60,13 @@ public class MezziRestController {
 		m.setTipomezzo(tp);
 		
 		mezziService.Aggiungi(m);
+		return ResponseEntity.ok("\" Mezzo aggiunto\"");
 	}
 	
 	@GetMapping(value ="/modifica/{id}")
 	public void GetModificaId(@PathVariable("id")int id) {
-		Mezzo m = mezziService.selById(id);
+		Optional<Mezzo> tm = mezziService.selById(id);
+		Mezzo m = tm.get();
 		if(m == null) {
 			throw new RuntimeException("Errore");						
 		}else {
@@ -63,8 +75,9 @@ public class MezziRestController {
 	}
 	
 	@PostMapping(value="modifica")
-	public void Modifica(@RequestBody Mezzo mezzo) {
-		Mezzo m = mezziService.selById(ModificaId);
+	public ResponseEntity<String> Modifica(@RequestBody Mezzo mezzo) {
+		Optional<Mezzo> tm = mezziService.selById(ModificaId);
+		Mezzo m = tm.get();
 		TipoMezzo tp = new TipoMezzo();
 		
 		m.setCasaCostr(mezzo.getCasaCostr());
@@ -74,6 +87,7 @@ public class MezziRestController {
 		m.setTipomezzo(tp);
 		
 		mezziService.Aggiorna(m);
+		return ResponseEntity.ok("\"Mezzo modificato correttamente \"");
 	}	
 	
 	

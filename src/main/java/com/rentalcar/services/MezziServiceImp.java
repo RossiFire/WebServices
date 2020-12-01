@@ -1,6 +1,7 @@
 package com.rentalcar.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,28 +18,28 @@ public class MezziServiceImp implements MezziService{
 	private MezziDao mezziDao;
 	
 	@Override
-	public Mezzo selById(int id) {
-		return mezziDao.selById(id);
+	public Optional<Mezzo> selById(int id) {
+		return mezziDao.findById(id);
 	}
 
 	@Override
 	public List<Mezzo> selTutti() {
-		return mezziDao.selTutti();
+		return mezziDao.findAll();
 	}
 
 	@Override
 	public void Aggiungi(Mezzo mezzo) {
-		mezziDao.Aggiungi(mezzo);	
+		mezziDao.save(mezzo);
 	}
 
 	@Override
 	public void Aggiorna(Mezzo mezzo) {
-		mezziDao.Aggiorna(mezzo);
+		Aggiungi(mezzo);
 	}
 
 	@Override
 	public void Elimina(Mezzo mezzo) {
-		mezziDao.Elimina(mezzo);
+		mezziDao.delete(mezzo);
 	}
 	
 

@@ -36,7 +36,7 @@ public class SalutiRestContoller {
 	public ResponseEntity<String> AggiungiUtente(@RequestBody Utente utente) {
 		Utente u = Normalizzazione(utente);
 		utentiService.Aggiungi(u);
-		return new ResponseEntity<String>("Utente Inserito nel server", HttpStatus.OK);
+		return new ResponseEntity<String>("\"Utente Inserito nel server\"", HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/customer", produces = "application/json")
@@ -45,16 +45,15 @@ public class SalutiRestContoller {
 	}
 	
 	
-	@GetMapping("/elimina/{id}")
+	@PostMapping("/elimina/{id}")
 	public ResponseEntity<String> Elimina(@PathVariable("id") int id) {
 		Optional <Utente> tm = utentiService.selById(id);
 		Utente u = tm.get();
 		if(u == null) {
-		//	return new ResponseEntity <String>("Errore Nell'eliminazione dell'utente", HttpStatus.BAD_REQUEST);
-			return ResponseEntity.badRequest().body("Errore Nell'eliminazione dell'utente");
+			return ResponseEntity.badRequest().body("\"Errore Nell'eliminazione dell'utente\"");
 		}else {
 			utentiService.Elimina(u);
-			return new ResponseEntity<String>("Eliminazione avvenuta con successo", HttpStatus.OK);
+			return ResponseEntity.ok("\"Eliminazione avvenuta con successo\"");
 		}
 	}
 	
@@ -64,17 +63,16 @@ public class SalutiRestContoller {
 		Optional<Utente> tm = utentiService.selById(id);
 		Utente u = tm.get();
 		if(u == null) {
-			return new ResponseEntity<String>("Errore Nell'eliminazione dell'utente", HttpStatus.BAD_REQUEST);					
+			return new ResponseEntity<String>("\"Errore Nell'eliminazione dell'utente\"", HttpStatus.BAD_REQUEST);					
 		}else {
 			ModificaId= u.getId();
-			return new ResponseEntity<String>("Id memorizzato e pronto alla modifica", HttpStatus.OK);
+			return new ResponseEntity<String>("\"Id memorizzato e pronto alla modifica\"", HttpStatus.OK);
 		}
 	}
 
 	
 	@PostMapping("/modifica")
-	public ResponseEntity<String> Modifica(@RequestBody Utente utente) {
-		
+	public ResponseEntity<String> Modifica(@RequestBody Utente utente) {	
 		Optional<Utente> tm = utentiService.selById(ModificaId);
 		Utente u = tm.get();
 		TipoUtente tp = new TipoUtente();
@@ -85,7 +83,7 @@ public class SalutiRestContoller {
 		tp.setId(utente.getTipoutente().getId());
 		u.setTipoutente(tp);
 		utentiService.Aggiorna(u);
-		return new ResponseEntity<String>("Modifica Avvenuta con successo", HttpStatus.OK);
+		return new ResponseEntity<String>("\"Modifica Avvenuta con successo\"", HttpStatus.OK);
 	}
 	
 	
@@ -110,8 +108,6 @@ public class SalutiRestContoller {
 	
 	@GetMapping(value="/singolo/{id}")
 	public Optional<Utente> getUtente(@PathVariable("id") int id) {
-		System.out.println("Ci siamooooo");
-		System.out.println("Ci siamooooo");
 		return utentiService.selById(id);
 	}
 	

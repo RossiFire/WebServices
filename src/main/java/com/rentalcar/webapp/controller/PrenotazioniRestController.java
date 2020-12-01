@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,11 +45,18 @@ public class PrenotazioniRestController {
 	
 	
 	@PostMapping(value = "/aggiungi")
-	public void AggiungiPrenotazione(@RequestBody Prenotazione p) {
+	public ResponseEntity<String> AggiungiPrenotazione(@RequestBody Prenotazione p) {
 		
-		Utente u = new Utente();
-//		= utentiService.selById(p.getUtentePrenotato().getId());
-		Mezzo m = mezziService.selById(p.getMezzoPrenotato().getId());
+		Optional<Utente> tu = utentiService.selById(p.getUtentePrenotato().getId());
+		if(tu.isEmpty()) {
+			return ResponseEntity.badRequest().body("\" Utente non trovato \"");
+		}
+		Optional<Mezzo> tm = mezziService.selById(p.getMezzoPrenotato().getId());
+		if(tu.isEmpty()) {
+			return ResponseEntity.badRequest().body("\" Mezzo non trovato \"");
+		}
+		Utente u = tu.get();
+		Mezzo m = tm.get();
 		Prenotazione Pr = new Prenotazione();
 		Pr.setId(p.getId());
 		Pr.setDataInizio(p.getDataInizio());
@@ -57,27 +65,47 @@ public class PrenotazioniRestController {
 		Pr.setUtentePrenotato(u);
 		Pr.setMezzoPrenotato(m);
 		PrenotazioniService.Aggiungi(Pr);
+		return ResponseEntity.ok("\" Prenotazione Aggiunta \"");
 			
 	}
 	
+	
 	@GetMapping(value ="elimina/{id}")
-	public void Elimina(@PathVariable("id")int id) {
-		PrenotazioniService.Elimina(PrenotazioniService.selById(id));
+	public ResponseEntity<String> Elimina(@PathVariable("id")int id) {
+		Optional<Prenotazione> tp = PrenotazioniService.selById(id);
+		if(tp.isEmpty()) {
+			return ResponseEntity.badRequest().body("\" Prenotazione da eliminare non trovata \"");
+		}
+		Prenotazione p = tp.get();
+		PrenotazioniService.Elimina(p);
+		return ResponseEntity.ok("\"Prenotazione eliminata \"");
 	}
+	
+	
 	
 	
 	@GetMapping(value = "modifica/{id}")
 	public void Precompila(@PathVariable("id")int id) {
-		IdInMemoria = PrenotazioniService.selById(id).getId();
+		Optional<Prenotazione> tp = PrenotazioniService.selById(id);
+		IdInMemoria = tp.get().getId();
 	}
 	
+	
+	
 	@PostMapping(value="/modifica")
-	public void Modifica(@RequestBody Prenotazione p) {
-		Prenotazione Pr =  PrenotazioniService.selById(IdInMemoria);
+	public ResponseEntity<String> Modifica(@RequestBody Prenotazione p) {
+		Optional<Prenotazione> tp =  PrenotazioniService.selById(IdInMemoria);
+		if(tp.isEmpty()) {
+			return ResponseEntity.badRequest().body("\" Prenotazione da modificare non trovata \"");
+		}
+		Prenotazione Pr = tp.get();
+		
 		Optional<Utente> tm = utentiService.selById(p.getUtentePrenotato().getId());
 		Utente NewUtente = tm.get();
-		Mezzo newMezzo = mezziService.selById(p.getMezzoPrenotato().getId());
 		
+		Optional<Mezzo> tmm = mezziService.selById(p.getMezzoPrenotato().getId());
+		Mezzo newMezzo = tmm.get();
+
 		
 		Pr.setApprovata(p.isApprovata());
 		Pr.setDataInizio(p.getDataInizio());
@@ -85,6 +113,7 @@ public class PrenotazioniRestController {
 		Pr.setUtentePrenotato(NewUtente);
 		Pr.setMezzoPrenotato(newMezzo);
 		PrenotazioniService.Aggiorna(Pr);
+		return ResponseEntity.ok("\"Prenotazione Modificata \"");
 	}
 
 	

@@ -1,13 +1,14 @@
 package com.rentalcar.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.rentalcar.entities.Mezzo;
 
 public interface MezziService {
 
 	
-	Mezzo selById(int id);
+	Optional<Mezzo> selById(int id);
 	
 	List<Mezzo> selTutti();
 	
