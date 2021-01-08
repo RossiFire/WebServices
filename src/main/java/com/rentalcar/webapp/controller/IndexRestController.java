@@ -6,12 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
-@CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins="http://localhost:4200")
 public class IndexRestController {
 	
-	@GetMapping
+	@GetMapping("/")
 	public String home() {
-		return "ciao";
+		return "autenticato";
+	}
+		
+	@GetMapping("/utente")
+	public String getUtente() {
+		return "Bho ci dovrebbe essere un'utente in formato json";
 	}
 }
