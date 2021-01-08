@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rentalcar.entities.Prenotazione;
 
@@ -42,6 +43,8 @@ public class Utente implements Serializable {
 	@Column(name = "COGNOME")
 	private String cognome;
 
+	//@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern="MM/dd/yyyy")
 	@Column(name = "NASCITA")
 	private Date nascita;
 

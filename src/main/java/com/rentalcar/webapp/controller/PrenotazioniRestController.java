@@ -3,6 +3,7 @@ package com.rentalcar.webapp.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,13 +20,13 @@ import com.rentalcar.entities.Utente;
 import com.rentalcar.services.MezziService;
 import com.rentalcar.services.PrenotazioniService;
 import com.rentalcar.services.UtentiService;
+import com.rentalcar.webapp.Application;
 
 @RestController
 @RequestMapping("/prenotazioni")
 @CrossOrigin(origins="http://localhost:4200")
 public class PrenotazioniRestController {
 	
-		
 	@Autowired
 	private PrenotazioniService PrenotazioniService;
 	

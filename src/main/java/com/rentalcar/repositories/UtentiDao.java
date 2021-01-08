@@ -1,6 +1,8 @@
 package com.rentalcar.repositories;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,8 @@ public interface UtentiDao extends JpaRepository<Utente, Integer>{
 		
 		@Query("SELECT a FROM Utente a, TipoUtente b WHERE a.tipoutente=b.id AND b.tipo= 'CUSTOMER'")
 		public List<Utente> SelCustomer();
+		
+		Optional<Utente> findByNome(String nome);
 		
 }
 

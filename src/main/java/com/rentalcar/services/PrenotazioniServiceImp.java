@@ -24,19 +24,18 @@ public class PrenotazioniServiceImp implements PrenotazioniService{
 
 	@Override
 	public void Aggiungi(Prenotazione prenotazione) {
-		prenotazioniDao.save(prenotazione);
-		
+		prenotazioniDao.save(prenotazione);	
 	}
 
 	@Override
 	public void Aggiorna(Prenotazione prenotazione) {
 		Aggiungi(prenotazione);
-		
 	}
 
+	
 	@Override
 	public void Elimina(Prenotazione prenotazione) {
-		prenotazioniDao.delete(prenotazione);	
+		prenotazioniDao.delete(prenotazione.getId());
 	}
 	
 

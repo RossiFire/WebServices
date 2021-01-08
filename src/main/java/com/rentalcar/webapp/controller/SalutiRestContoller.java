@@ -83,7 +83,8 @@ public class SalutiRestContoller {
 		tp.setId(utente.getTipoutente().getId());
 		u.setTipoutente(tp);
 		utentiService.Aggiorna(u);
-		return new ResponseEntity<String>("\"Modifica Avvenuta con successo\"", HttpStatus.OK);
+		System.out.println(u.getId());
+		return new ResponseEntity<String>("\"Utente Modificato\"", HttpStatus.OK);
 	}
 	
 	
@@ -110,6 +111,26 @@ public class SalutiRestContoller {
 	public Optional<Utente> getUtente(@PathVariable("id") int id) {
 		return utentiService.selById(id);
 	}
+	
+	
+	@PostMapping(value="/modificaProfilo")
+	public ResponseEntity<String> ModificaProfilo(@RequestBody Utente utente){
+		Optional<Utente> Ut = utentiService.selById(utente.getId());
+		Utente u = Ut.get();
+		if(u == null) {
+			return ResponseEntity.badRequest().body("\" Non siamo riusciti a prelevare l'utente \"");
+		}
+		TipoUtente tp = new TipoUtente();
+		u.setNome(utente.getNome());
+		u.setCognome(utente.getCognome());
+		u.setNascita(utente.getNascita());
+		u.setPassword(utente.getPassword());
+		tp.setId(utente.getTipoutente().getId());
+		u.setTipoutente(tp);
+		utentiService.Aggiorna(u);
+		return ResponseEntity.ok("\" Profilo modificato \"");
+	}
+	
 	
 	
 	public Utente Normalizzazione(Utente utente) {
