@@ -27,7 +27,7 @@ public class Securityconfiguration extends WebSecurityConfigurerAdapter{
 		http.cors();
 		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/**")
+		.anyRequest()
 		.fullyAuthenticated().and().httpBasic();	
 	}
 	
@@ -36,7 +36,7 @@ public class Securityconfiguration extends WebSecurityConfigurerAdapter{
 		auth.inMemoryAuthentication()
 		.withUser("Daniele").password("admin").roles("ADMIN");
 	}
-//	
+	
 //	@Bean
 //	public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
