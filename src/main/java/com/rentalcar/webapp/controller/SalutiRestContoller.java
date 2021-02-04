@@ -22,7 +22,8 @@ import com.rentalcar.services.UtentiService;
 
 @RestController
 @RequestMapping("/utenti")
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins={"http://localhost:4200","http://localhost:3000"})
+
 public class SalutiRestContoller {
 	
 	
@@ -45,7 +46,7 @@ public class SalutiRestContoller {
 	}
 	
 	
-	@PostMapping("/elimina/{id}")
+	@GetMapping("/elimina/{id}")
 	public ResponseEntity<String> Elimina(@PathVariable("id") int id) {
 		Optional <Utente> tm = utentiService.selById(id);
 		Utente u = tm.get();

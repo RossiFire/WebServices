@@ -32,8 +32,8 @@ public class MezziRestController {
 	@GetMapping(value = "/catalogo", produces = "application/json")
 	public List<Mezzo> getMezzi(){
 		return mezziService.selTutti();
-		
 	}
+	
 	
 	@GetMapping(value = "/elimina/{id}")
 	public ResponseEntity<String> EliminaMezzo(@PathVariable("id")int id) {
@@ -72,6 +72,12 @@ public class MezziRestController {
 		}else {
 			ModificaId= m.getId();
 		}
+	}
+	
+	@GetMapping(value="/singolo/{id}")
+	public Mezzo getMezzo(@PathVariable("id")int id) {
+		return mezziService.selById(id).get();
+		
 	}
 	
 	@PostMapping(value="modifica")

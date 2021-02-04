@@ -17,32 +17,47 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin(origins="http://localhost:4200")
 public class Securityconfiguration extends WebSecurityConfigurerAdapter{
 	
+//	@Autowired
+//	CustomUserDetailsService userDetails;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+		
 		http.cors();
 		http.csrf().disable()
 		.authorizeRequests()
-		.anyRequest()
-		.fullyAuthenticated().and().httpBasic();	
+	//	.and()
+	//	.antMatchers(HttpMethod.OPTIONS, "/**")
+		.antMatchers("/**")
+		.permitAll();
+//		.anyRequest()
+//		.fullyAuthenticated().and().httpBasic();	
 	}
 	
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.inMemoryAuthentication()
-		.withUser("Daniele").password("admin").roles("ADMIN");
-	}
+//	@Override
+//	public void configure(AuthenticationManagerBuilder auth) throws Exception{
+//		auth.inMemoryAuthentication()
+//		.withUser("Daniele").password("admin").roles("ADMIN");
+//	}
 	
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//		auth.inMemoryAuthentication()
+//		.withUser("Daniele").password("{noop}admin").roles("ADMIN");
+//	}
+//	
 //	@Bean
 //	public BCryptPasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
-	
-	@Bean
-	public PasswordEncoder getPasswordEncoder() { return NoOpPasswordEncoder.getInstance();};
+//	
+//	@Bean
+//	public PasswordEncoder getPasswordEncoder() { return NoOpPasswordEncoder.getInstance();};
 	
 }

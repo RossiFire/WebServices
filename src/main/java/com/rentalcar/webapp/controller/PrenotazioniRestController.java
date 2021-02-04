@@ -92,6 +92,12 @@ public class PrenotazioniRestController {
 	}
 	
 	
+	@GetMapping(value="/singolo/{id}")
+	public Prenotazione getPrenotazione(@PathVariable("id")int id) {
+		return PrenotazioniService.selById(id).get();
+		
+	}
+	
 	
 	@PostMapping(value="/modifica")
 	public ResponseEntity<String> Modifica(@RequestBody Prenotazione p) {
